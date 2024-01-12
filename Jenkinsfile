@@ -5,12 +5,18 @@ pipeline {
             steps {
                 script {
 		    bat 'minikube start'
-                    bat 'helm install ldap ./my-bitnami'
-                    bat 'echo success ldap helm'
+                    bat 'helm install ${BUILD_NUMBER}  ./my-bitnami'
+                    bat 'echo success ${BUILD_NUMBER}  helm'
 		    bat 'kubectl get pods'
                 }
             }
         }
+        stage('set version') { 	
+            steps {	
+                bat "echo IMAGE_TAG=${BUILD_NUMBER} > .env"   
+			    bat "more .env"
+            }	
+         }
         stage('run flask') {
             steps {
                 script {
