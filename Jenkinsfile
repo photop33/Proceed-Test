@@ -7,6 +7,7 @@ pipeline {
 		    bat 'minikube start'
                     bat 'helm install ldap ./my-bitnami'
                     bat 'echo success ldap helm'
+		    bat 'kubectl get pods'
                 }
             }
         }
