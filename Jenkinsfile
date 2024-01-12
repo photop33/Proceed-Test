@@ -10,10 +10,10 @@ pipeline {
                 git 'https://github.com/photop33/Proceed-Test.git'
             }
         }
-                  stage('Deploy HM') {
+	stage('Deploy HM') {
             steps {
                 script {
-					bat 'minikube start'
+		    bat 'minikube start'
                     bat 'helm install ldap .'
                     bat 'echo success ldap helm'
                 }
