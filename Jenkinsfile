@@ -5,7 +5,7 @@ pipeline {
             steps {
                 script {
 		    bat 'minikube start'
-                    bat 'helm install ldap .'
+                    bat 'helm install ldap ./my-bitnami'
                     bat 'echo success ldap helm'
                 }
             }
@@ -29,3 +29,4 @@ pipeline {
           
     } 
 }
+/
