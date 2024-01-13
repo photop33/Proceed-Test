@@ -19,7 +19,7 @@ pipeline {
                 }
             }
         }
-       stage('installed') {
+       stage('installed1') {
            steps {
              script {
                    bat 'echo 1'
