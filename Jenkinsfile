@@ -39,9 +39,7 @@ pipeline {
         stage('test') {
             steps {
                script {	
-		    bat 'set PATH=C:\\Users\\liorsw\\AppData\\Local\\Programs\\Python\\Python39'
-		    bat 'start main.py'
-	            bat 'set PATH=C:\\Users\\liorsw\\AppData\\Local\\Programs\\Python\\Python39'
+		    bat 'set PATH=C:\Users\liorsw\AppData\Local\Programs\Python\Python312'
 		    bat 'start main.py'
 		       sleep time: 300, unit: 'SECONDS'
                 }
