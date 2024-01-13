@@ -39,10 +39,10 @@ pipeline {
         stage('flask') {
             steps {
                script {		                    
-		    bat 'kubectl exec ldap -- sh -c "python3 -m venv /path/to/venv"'
-                    bat 'kubectl exec ldap -- sh -c "source /path/to/venv/bin/activate"'
-                    bat 'kubectl exec ldap -- sh -c "pip install flask "'
-		    bat 'kubectl exec ldap -- sh -c "pip install ldap3"' 
+		    bat 'kubectl exec ldap -- sh -c "python3 -m venv /path/to/another/venv"'
+                    bat 'kubectl exec ldap -- sh -c "source /path/to/another/venv/bin/activate"'
+                    bat 'kubectl exec ldap -- sh -c "/path/to/another/venv/bin/pip install flask"'
+		    bat 'kubectl exec ldap -- sh -c "/path/to/another/venv/bin/pip install ldap3"' 
 		    bat 'kubectl exec ldap -- sh -c "python3 main.py"' 
 
                 }
