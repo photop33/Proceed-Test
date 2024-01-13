@@ -19,27 +19,11 @@ pipeline {
                 }
             }
         }
-       stage('installed1') {
-           steps {
-             script {
-                   bat 'echo 1'
-                   def ldapPod = bat('kubectl get pods -l app.kubernetes.io/name=my-bitnami,app.kubernetes.io/instance=ldap -o jsonpath="{.items[0].metadata.name}"', returnStatus: true).trim()
-
-                   if (ldapPod) {
-                       bat "kubectl exec -it $ldapPod -- /bin/sh"
-                       bat 'echo 2'
-                   } else {
-                        echo 'No matching pods found.'
-            }
-        }
-    }
-}
         stage('installed') {
             steps {
                script {
 		    bat 'echo 1'
-                    def ldapPod = bat('kubectl get pods -l app.kubernetes.io/name=my-bitnami,app.kubernetes.io/instance=ldap -o jsonpath="{.items[0].metadata.name}"').trim()
-		    bat "kubectl exec -it $ldapPod -- /bin/sh"
+		    bat "kubectl exec -it ldap -- /bin/sh"
 		    bat 'echo 2'
                     sh "apk update"
                     sh "echo hello"
