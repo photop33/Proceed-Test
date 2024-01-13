@@ -1,9 +1,7 @@
 dn: cn=Manager,dc=my-domain,dc=com
 changetype: modify
 add: objectClass
-objectClass: simpleSecurityObject
-add: objectClass
-objectClass: organizationalRole
+objectClass: inetOrgPerson
 add: cn
 cn: Manager lior
 add: userPassword
