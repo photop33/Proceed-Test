@@ -43,10 +43,15 @@ pipeline {
                 }
             }
         } 
-	stage('Front_test') {
+	stage('Fronted&backend Test') {
             steps {
                script {	
 		    bat 'Front_test.py >> front_print.txt'
+		    bat 'echo front_print.txt'
+		    bat 'Front_test.py >> back_print.txt'
+		        bat 'echo back_print.txt'
+
+
 
                 }
             }
