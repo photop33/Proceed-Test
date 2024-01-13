@@ -2,7 +2,7 @@ import requests
 
 try:
     # Send a GET request to the server
-    response = requests.get('http://localhost:50001')
+    response = requests.get('http://localhost:5001')
 
     # Check if the request was successful (status code 200)
     if response.status_code == 200:
