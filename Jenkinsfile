@@ -25,6 +25,7 @@ pipeline {
                script {
                     def podName = sh(script: 'kubectl get pods -o jsonpath="{.items[0].metadata.name}"', returnStdout: true).trim()
                     sh "kubectl exec -it $podName -- /bin/sh"
+		    sh "apk update"
                 }
             }
         }
