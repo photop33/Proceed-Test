@@ -49,9 +49,7 @@ pipeline {
                script {	
   //                bat 'C:\\Users\\liorsw\\AppData\\Local\\Programs\\Python\\Python312\\Scripts\\pip install selenium'
                     bat 'Backend_test.py > backend_test.txt 2>&1'
-                    bat 'Front_test.py > front_print.txt 2>&1'
-		                              sleep time: 40, unit: 'SECONDS'
- 
+                    bat 'Front_test.py > front_print.txt 2>&1' 
 		    bat 'echo front_print secsess'
 		    bat 'echo backend_test secsess'
                 }
