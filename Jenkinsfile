@@ -26,7 +26,7 @@ pipeline {
                 }
             }
         }  
-        stage('commaned') {
+        stage('Create Ldap') {
             steps {
                script {
                     bat 'kubectl exec ldap -- sh -c "nohup slapd -h ldap://localhost -d 481 &"'
