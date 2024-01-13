@@ -31,8 +31,10 @@ pipeline {
                script {
                     bat 'kubectl exec ldap -- sh -c "nohup slapd -h ldap://localhost -d 481 &"'
                     bat 'kubectl cp user.ldif ldap:/tmp'
-                    bat 'kubectl exec ldap -- sh -c "which ldapmodify"'
-                    bat script: """kubectl exec ldap -- sh -c "/usr/bin/ldapsearch -x -D 'cn=Manager,dc=my-domain,dc=com' -w secret -f /tmp/user.ldif""""" , returnStatus: true
+                    bat """kubectl exec ldap -- sh -c "/usr/bin/ldapsearch -x -D 'cn=Manager,dc=my-domain,dc=com' -w secret -f /tmp/user.ldif"""""
+		    bat 'echo secsess'
+
+
                 }
             }
         } 
