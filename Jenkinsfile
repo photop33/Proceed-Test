@@ -50,7 +50,7 @@ pipeline {
 	stage('expose') {
             steps {
                script {		                    
-		    bat 'kubectl port-forward ldap 5001:5001'
+		    bat 'kubectl port-forward ldap 5002:5002'
                 }
             }
         }  
