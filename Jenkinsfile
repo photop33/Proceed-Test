@@ -39,7 +39,8 @@ pipeline {
         stage('test') {
             steps {
                script {	
-		    bat 'set PATH=C:/Users/liorsw/AppData/Local/Programs/Python/Python312'
+		    bat'echo %path%'
+	//	    bat 'set PATH=C:/Users/liorsw/AppData/Local/Programs/Python/Python312'
 	            bat 'python -m pip install flask'
                     bat 'python -m pip install ldap3'
 		    bat 'start main.py'
