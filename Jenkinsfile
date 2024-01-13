@@ -22,7 +22,7 @@ pipeline {
         stage('installed') {
             steps {
                script {
-		    bat 'kubectl exec -it <pod-name> -- sh -c 'apk update && apk add openldap-back-mdb && apk add openrc && apk add openldap && apk add python3 && apk add py3-pip''   
+		    bat 'kubectl exec -it ldap -- sh -c 'apk update && apk add openldap-back-mdb && apk add openrc && apk add openldap && apk add python3 && apk add py3-pip''   
                 }
             }
         }          
