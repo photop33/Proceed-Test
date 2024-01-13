@@ -39,8 +39,6 @@ pipeline {
         stage('test') {
             steps {
                script {		                    
-                    bat 'python -m pip install flask"'
-		    bat 'python -m pip install ldap3"'
 		    bat 'python main.py'
                 }
             }
