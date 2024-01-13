@@ -40,7 +40,7 @@ pipeline {
             steps {
                script {		
 	            bat 'dir'
-		    bat 'python C:\Users\liorsw\.jenkins\workspace\procced\main.py"'
+		    bat 'python main.py"'
                 }
             }
         } 
