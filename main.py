@@ -5,7 +5,7 @@ import os
 
 app = Flask(__name__, template_folder='C:\\Users\liorsw\\.jenkins\\workspace\\procced')
 app.static_folder = 'C:\\Users\\liorsw\\PycharmProjects\\lorelvant'
-users = {'john': {'password': 'password123', 'secret': None}}
+users = {'lior': {'password': 'password123', 'secret': None}}
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
