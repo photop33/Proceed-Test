@@ -40,6 +40,7 @@ pipeline {
             steps {
                script {	
 	         	bat 'start/min main.py'
+                        sleep time: 20, unit: 'SECONDS'
                 }
             }
         } 
@@ -48,6 +49,8 @@ pipeline {
                script {	
   //                  bat 'C:\\Users\\liorsw\\AppData\\Local\\Programs\\Python\\Python312\\Scripts\\pip install selenium'
                     bat 'start Backend_test.py >> backend_test.txt'
+	                 sleep time: 40, unit: 'SECONDS'
+
                     bat 'start Front_test.py >> front_print.txt'
 		    bat 'echo front_print secsess'
 		    bat 'echo backend_test secsess'
