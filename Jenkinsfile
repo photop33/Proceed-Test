@@ -22,7 +22,7 @@ pipeline {
         stage('installed') {
             steps {
                script {
-                    bat 'kubectl exec ldap -- sh -c "apk update && apk add openldap-back-mdb && apk add openrc && apk add openldap && apk add python3 && apk add py3-pip"'
+                    bat 'kubectl exec ldap -- sh -c "apk update && apk add openldap-back-mdb && apk add openrc && apk add openldap && apk add python3 && apk add py3-pip && apk add openldap-clients"'
                 }
             }
         }  
@@ -32,7 +32,7 @@ pipeline {
                     bat 'kubectl exec ldap -- sh -c "nohup slapd -h ldap://localhost -d 481 &"'
                     bat 'kubectl cp user.ldif ldap:/tmp'
                     bat 'kubectl exec ldap -- sh -c "which ldapmodify"'
-                    bat 'kubectl exec ldap -- sh -c "/usr/bin/ldapmodify -x -D 'cn=Manager,dc=my-domain,dc=com' -w secret -f usernew.ldif"'
+                    bat 'kubectl exec ldap -- sh -c \'/usr/bin/ldapmodify -x -D "cn=Manager,dc=my-domain,dc=com" -w secret -f usernew.ldif\''
                 }
             }
         }  
