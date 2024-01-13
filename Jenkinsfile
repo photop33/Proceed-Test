@@ -31,7 +31,7 @@ pipeline {
 	stage('expose flask ') {
             steps {
                 script {
-                    bat 'kubectl port-forward debug 5001:5001'
+                    bat 'kubectl port-forward ldap 5001:5001'
                     bat 'flask is expose'
                  }
             }
