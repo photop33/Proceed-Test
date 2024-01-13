@@ -13,6 +13,7 @@ spec:
       {{- include "my-bitnami.selectorLabels" . | nindent 6 }}
   template:
     metadata:
+      name: {{ .Values.pod.podName }}
       {{- with .Values.podAnnotations }}
       annotations:
         {{- toYaml . | nindent 8 }}
