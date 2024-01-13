@@ -24,6 +24,8 @@ pipeline {
                script {
 		    bat 'kubectl exec -it ldap -- apk update'
 		    bat 'kubectl exec -it ldap -- apk add openldap-back-mdb'
+                    bat 'kubectl exec -it <pod-name> -- sh -c 'apk update && apk add openldap-back-mdb && apk add openrc && apk add openldap && apk add python3 && apk add py3-pip''
+
                 }
             }
         }          
