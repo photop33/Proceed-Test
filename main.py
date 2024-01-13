@@ -1,55 +1,51 @@
-from flask import Flask, render_template, request
-from ldap3 import Server, Connection, ALL, SIMPLE, SUBTREE
+from flask import Flask, render_template, request, redirect, url_for
+import pyotp
+from qrcode import make as make_qr  # Explicitly import 'make' function from 'qrcode'
+import os
 
-app = Flask(__name__, template_folder='C:/Users/liorsw/.jenkins/workspace/procced')
+app = Flask(__name__, template_folder='C:\\Users\\liorsw\\PycharmProjects\\lorelvant')
+app.static_folder = 'C:\\Users\\liorsw\\PycharmProjects\\lorelvant'
+users = {'john': {'password': 'password123', 'secret': None}}
 
-# LDAP server configuration
-LDAP_SERVER = 'ldap://localhost'
-LDAP_BIND_USER = 'cn=admin,dc=example,dc=com'
-LDAP_BIND_PASSWORD = 'secret'
-LDAP_BASE_DN = 'dc=example,dc=com'
-
-@app.route('/')
-def login_page():
-    return render_template('login.html')
-
-# Route for the login page
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
 
-        # Authenticate the user against OpenLDAP
-        if authenticate_ldap(username, password):
-            return 'Login Successful!'
+        if username in users and users[username]['password'] == password:
+            # Generate and save a new secret key for the user
+            users[username]['secret'] = pyotp.random_base32()
+            return redirect(url_for('enable_mfa', username=username))
         else:
-            return 'Login Failed!'
-
+            return "Invalid username or password."
     return render_template('login.html')
 
-# Function to authenticate against OpenLDAP
-def authenticate_ldap(username, password):
-    try:
-        server = Server(LDAP_SERVER, get_info=ALL)
-        connection = Connection(server, user=LDAP_BIND_USER, password=LDAP_BIND_PASSWORD, auto_bind=True)
+@app.route('/enable-mfa/<username>', methods=['GET', 'POST'])
+def enable_mfa(username):
+    if request.method == 'POST':
+        user_secret = users[username]['secret']
+        totp = pyotp.TOTP(user_secret)
+        provided_otp = request.form['otp']
 
-        # Search for the user in OpenLDAP
-        search_filter = f'(&(objectClass=person)(uid={username}))'  # Modify according to your LDAP schema
-        connection.search(search_base=LDAP_BASE_DN, search_filter=search_filter, search_scope=SUBTREE, attributes=['dn'])
-
-        if connection.entries:
-            user_dn = connection.entries[0].dn
-            # Attempt to bind with the user's DN and password
-            user_connection = Connection(server, user=user_dn, password=password, auto_bind=True)
-            user_connection.unbind()
-            return True
+        if totp.verify(provided_otp):
+            return f"Multi-Factor Authentication enabled for {username}."
         else:
-            return False
+            return "Invalid OTP. MFA setup failed."
 
-    except Exception as e:
-        print(f'LDAP Error: {e}')
-        return False
+    # Generate QR code URL for the template
+    user_secret = users[username]['secret']
+    totp = pyotp.TOTP(user_secret)
+    uri = totp.provisioning_uri(name=username, issuer_name="YourApp")
+
+    # Save or display the QR code as needed
+    img = make_qr(uri)
+    img_path = os.path.join(app.static_folder, 'qrcode.png')  # Save the QR code image in the static folder
+    img.save(img_path)
+
+    qr_code_url = url_for('static', filename='qrcode.png', _external=True)  # URL to the saved QR code
+
+    return render_template('enable_mfa.html', username=username, qr_code_url=qr_code_url)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5003)
+    app.run(debug=True)
