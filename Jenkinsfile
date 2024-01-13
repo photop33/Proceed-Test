@@ -46,8 +46,7 @@ pipeline {
 	stage('Fronted&backend Test') {
             steps {
                script {	
-                    bat 'cd C:\\Users\\liorsw\\AppData\\Local\\Programs\\Python\\Python312'
-		    bat 'pip install requests'
+                    bat 'bat 'C:\\Users\\liorsw\\AppData\\Local\\Programs\\Python\\Python312\\Scripts\\pip install requests'
 		    bat 'Backend_test.py >> front_print.txt'
 		    bat 'echo front_print.txt'
                 }
