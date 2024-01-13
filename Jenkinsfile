@@ -23,7 +23,6 @@ pipeline {
         stage('installed') {
             steps {
                 script {
-                    def ldap = sh(script: 'kubectl get pods -o jsonpath="{.items[0].metadata.name}"', returnStdout: true).trim()
                     sh "kubectl exec -it ldap -- /bin/sh"
                     bat 'app seccess'
                     bat 'app seccess'
