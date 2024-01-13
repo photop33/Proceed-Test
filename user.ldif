@@ -1,10 +1,4 @@
 dn: cn=Manager,dc=my-domain,dc=com
 changetype: modify
-add: objectClass
-objectClass: inetOrgPerson
-add: cn
-cn: Manager lior
-delete: userPassword
--
-add: userPassword
+replace: userPassword
 userPassword: secret
