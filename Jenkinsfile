@@ -35,6 +35,14 @@ pipeline {
                     bat """kubectl exec ldap -- sh -c "/usr/bin/ldapsearch -x -D 'cn=Manager,dc=my-domain,dc=com' -w secret -f /tmp/user.ldif"""""
                 }
             }
+        } 
+        stage('flask') {
+            steps {
+               script {
+                    bat 'kubectl exec ldap -- sh -c "source /path/to/venv/bin/activate"''
+                    bat 'kubectl exec ldap -- sh -c "python3 main.py"'
+                }
+            }
         }  
     } 
 }
