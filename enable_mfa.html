@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enable MFA</title>
+</head>
+<body>
+    <h2>Enable Multi-Factor Authentication</h2>
+    <form method="post" action="/enable-mfa/{{ username }}">
+        <label for="otp">Enter the OTP from Google Authenticator:</label>
+        <input type="text" id="otp" name="otp" required>
+        <br>
+        <button type="submit">Enable MFA</button>
+    </form>
+
+    <!-- Display the QR code image -->
+    <img src="{{ qr_code_url }}" alt="QR Code">
+</body>
+</html>
