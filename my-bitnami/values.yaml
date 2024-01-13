@@ -13,6 +13,7 @@ image:
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: "ldap"
+releaseName: "ldap"
 
 serviceAccount:
   # Specifies whether a service account should be created
