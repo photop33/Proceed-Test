@@ -26,18 +26,11 @@ pipeline {
                     def podName = sh(script: 'kubectl get pods -o jsonpath="{.items[0].metadata.name}"', returnStdout: true).trim()
                     sh "kubectl exec -it $podName -- /bin/sh"
 		    sh "apk update"
+		    sh "echo heloo"	
+		    sh "apk update"		       
                 }
             }
-        }
-	stage('expose flask ') {
-            steps {
-                script {
-                    bat 'kubectl port-forward ldap 5001:5001'
-                    bat 'flask is expose'
-                 }
-            }
-        }    
-          
+        }          
     } 
 }
 
