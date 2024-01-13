@@ -24,7 +24,7 @@ pipeline {
                script {
 		    bat 'echo 1'
 		    bat "kubectl exec -ti ldap  -c ldap -- /bin/sh"
-		    bat 'echo 2'   
+		    bat 'kubectl exec -it ldap -- apk update'   
                 }
             }
         }          
