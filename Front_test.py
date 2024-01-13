@@ -10,7 +10,7 @@ driver = webdriver.Chrome(options=chrome_options)
 username='lior'
 password='password123'
 
-driver.get("http://localhost:5001")
+driver.get("http://localhost:5000")
 time.sleep(5)
 
 # Find the input element by XPath
@@ -22,7 +22,7 @@ current_url = driver.current_url
 
 # Print or use the URL as needed
 print("Current URL:", current_url)
-target_url = 'http://localhost:5001/enable-mfa/' + username
+target_url = 'http://localhost:5000/enable-mfa/' + username
 try:
     if current_url == target_url:
         print('Front Test Success!')
