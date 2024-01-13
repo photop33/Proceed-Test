@@ -23,11 +23,12 @@ pipeline {
         stage('installed') {
             steps {
                script {
+                    sh 'env'
                     def podName = sh(script: 'kubectl get pods -o jsonpath="{.items[0].metadata.name}"', returnStdout: true).trim()
                     sh "kubectl exec -it $podName -- /bin/sh"
-		    sh "apk update"
-		    sh "echo heloo"	
-		    sh "apk update"		       
+                    sh "apk update"
+                    sh "echo hello"
+                    sh "apk update"	       
                 }
             }
         }          
