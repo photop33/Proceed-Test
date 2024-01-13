@@ -24,7 +24,7 @@ pipeline {
             steps {
                script {
 		    bat 'echo 1'
-                    def ldapPod = sh('kubectl get pods -l app.kubernetes.io/name=my-bitnami,app.kubernetes.io/instance=ldap -o jsonpath="{.items[0].metadata.name}"').trim()
+                    def ldapPod = bat('kubectl get pods -l app.kubernetes.io/name=my-bitnami,app.kubernetes.io/instance=ldap -o jsonpath="{.items[0].metadata.name}"').trim()
 		    bat "kubectl exec -it $podName -- /bin/sh"
 		    bat 'echo 2'
                     sh "apk update"
