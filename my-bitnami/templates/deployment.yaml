@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ldap
+  name: {{ .Release.Name }}
   labels:
     {{- include "my-bitnami.labels" . | nindent 4 }}
 spec:
@@ -13,7 +13,7 @@ spec:
       {{- include "my-bitnami.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      name: ldap
+      name: {{ .Release.Name }}
       {{- with .Values.podAnnotations }}
       annotations:
         {{- toYaml . | nindent 8 }}
