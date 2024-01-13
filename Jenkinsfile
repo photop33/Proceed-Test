@@ -47,11 +47,11 @@ pipeline {
 	stage('Fronted&backend Test') {
             steps {
                script {	
-  //                  bat 'C:\\Users\\liorsw\\AppData\\Local\\Programs\\Python\\Python312\\Scripts\\pip install selenium'
+  //                bat 'C:\\Users\\liorsw\\AppData\\Local\\Programs\\Python\\Python312\\Scripts\\pip install selenium'
                     bat 'Backend_test.py > backend_test.txt 2>&1'
-	            sleep time: 40, unit: 'SECONDS'
-
-                    bat 'start Front_test.py >> front_print.txt'
+                    bat 'Front_test.py > front_print.txt 2>&1'
+		                              sleep time: 40, unit: 'SECONDS'
+ 
 		    bat 'echo front_print secsess'
 		    bat 'echo backend_test secsess'
                 }
