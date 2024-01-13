@@ -3,7 +3,7 @@ import pyotp
 from qrcode import make as make_qr  # Explicitly import 'make' function from 'qrcode'
 import os
 
-app = Flask(__name__, template_folder='C:\\Users\\liorsw\\PycharmProjects\\lorelvant')
+app = Flask(__name__, template_folder='C:\\Users\liorsw\\.jenkins\\workspace\\procced')
 app.static_folder = 'C:\\Users\\liorsw\\PycharmProjects\\lorelvant'
 users = {'john': {'password': 'password123', 'secret': None}}
 
