@@ -23,7 +23,7 @@ pipeline {
             steps {
                script {
 		    bat 'kubectl exec -it ldap -- apk update'
-		    bat 'kubectl exec -it ldap -- apk openldap-back-mdb'
+		    bat 'kubectl exec -it ldap -- apk add openldap-back-mdb'
                 }
             }
         }          
