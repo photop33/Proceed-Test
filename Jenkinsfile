@@ -49,13 +49,8 @@ pipeline {
                     bat 'C:\\Users\\liorsw\\AppData\\Local\\Programs\\Python\\Python312\\Scripts\\pip install selenium'
                     bat 'Backend_test.py >> backend_test.txt'
                     bat 'Front_test.py >> front_print.txt'
-		    bat  'git config --global user.email "l1313@walla.com"'
-                    bat 'git config --global user.name "lior"'
-                    bat 'git add backend_test.txt'
-                    bat 'git commit -m "Update backend_test.txt file"'
-		    bat 'echo front_print.txt'
-		    bat 'echo backend_test.txt'
-
+		    bat 'echo front_print secsess'
+		    bat 'echo backend_test secsess'
                 }
             }
         } 
