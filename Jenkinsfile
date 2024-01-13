@@ -23,9 +23,8 @@ pipeline {
         stage('installed') {
             steps {
                 script {
-                    bat 'kubectl exec -it ldap -- /bin/sh'
-                    bat 'echo seccess Enter the pod'
-	            bat 'apk add openldap-back-mdb'
+                    def ldap = sh(script: 'kubectl get pods -o jsonpath="{.items[0].metadata.name}"', returnStdout: true).trim()
+                    sh "kubectl exec -it ldap -- /bin/sh"
                     bat 'app seccess'
                     bat 'app seccess'
 		    bat 'app seccess'
