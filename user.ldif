@@ -4,5 +4,7 @@ add: objectClass
 objectClass: inetOrgPerson
 add: cn
 cn: Manager lior
-replace: userPassword
+delete: userPassword
+-
+add: userPassword
 userPassword: secret
