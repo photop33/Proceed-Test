@@ -22,12 +22,17 @@ pipeline {
         stage('installed') {
             steps {
                script {
-		    bat 'kubectl exec -it ldap -- apk update'
-		    bat 'kubectl exec -it ldap -- apk add openldap-back-mdb'
                     bat 'kubectl exec ldap -- sh -c "apk update && apk add openldap-back-mdb && apk add openrc && apk add openldap && apk add python3 && apk add py3-pip"'
                 }
             }
-        }          
+        }  
+        stage('commaned') {
+            steps {
+               script {
+                    bat 'kubectl exec ldap -- sh -c "source /path/to/venv/bin/activate && nohup slapd -h ldap://localhost -d 481 && kubectl cp user.ldif ldap:/tmp && ldapmodify -x -D "cn=Manager,dc=my-domain,dc=com" -w secret -f usernew.ldif"'
+                }
+            }
+        }  
     } 
 }
 
