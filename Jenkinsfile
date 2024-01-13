@@ -47,7 +47,7 @@ pipeline {
                 }
             }
         } 
-	stage('flask') {
+	stage('expose') {
             steps {
                script {		                    
 		    bat 'kubectl port-forward ldap 5001:5001'
