@@ -39,7 +39,7 @@ pipeline {
         stage('flask') {
             steps {
                script {
-                    bat 'kubectl exec ldap -- sh -c "source /path/to/venv/bin/activate"''
+                    bat 'kubectl exec ldap -- sh -c "source /path/to/venv/bin/activate"'
                     bat 'kubectl exec ldap -- sh -c "python3 main.py"'
                 }
             }
