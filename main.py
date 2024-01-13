@@ -48,4 +48,4 @@ def enable_mfa(username):
     return render_template('enable_mfa.html', username=username, qr_code_url=qr_code_url)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True , port=5000)
