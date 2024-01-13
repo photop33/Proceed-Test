@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request
 from ldap3 import Server, Connection, ALL, SIMPLE, SUBTREE
 
-app = Flask(__name__, template_folder='C:\Users\liorsw\.jenkins\workspace\procced')
+app = Flask(__name__, template_folder='C:/Users/liorsw/.jenkins/workspace/procced')
+users = {'john': {'password': 'password123', 'secret': None}}
+
 
 # LDAP server configuration
 LDAP_SERVER = 'ldap://localhost'
