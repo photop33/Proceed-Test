@@ -38,9 +38,13 @@ pipeline {
         } 
         stage('flask') {
             steps {
-               script {
+               script {		                    
+		    bat 'kubectl exec ldap -- sh -c "python3 -m venv /path/to/venv"'
                     bat 'kubectl exec ldap -- sh -c "source /path/to/venv/bin/activate"'
-                    bat 'kubectl exec ldap -- sh -c "python3 main.py"'
+                    bat 'kubectl exec ldap -- sh -c "pip install flask "'
+		    bat 'kubectl exec ldap -- sh -c "pip install ldap3"' 
+		    bat 'kubectl exec ldap -- sh -c "python3 main.py"' 
+
                 }
             }
         }  
