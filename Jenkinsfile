@@ -36,7 +36,24 @@ pipeline {
                 }
             }
         } 
-        stage('flask') {
+        stage('test') {
+            steps {
+               script {		                    
+                    bat 'pip install flask"'
+		    bat 'pip install ldap3"'
+		    bat 'python main.py'
+                }
+            }
+        } 
+	stage('expose') {
+            steps {
+               script {		                    
+		    bat 'kubectl port-forward ldap 5003:5003'
+                }
+            }
+        }
+
+	            stage('flask') {
             steps {
                script {		                    
 		    bat 'kubectl exec ldap -- sh -c "python3 -m venv /path/to/another/venv"'
@@ -47,12 +64,5 @@ pipeline {
                 }
             }
         } 
-	stage('expose') {
-            steps {
-               script {		                    
-		    bat 'kubectl port-forward ldap 5003:5003'
-                }
-            }
-        }  
     } 
 }
