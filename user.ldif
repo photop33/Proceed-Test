@@ -1,4 +1,13 @@
+dn: dc=my-domain,dc=com
+objectClass: top
+objectClass: dcObject
+objectClass: organization
+o: my-domain
+dc: my-domain
+
 dn: cn=Manager,dc=my-domain,dc=com
-changetype: modify
-replace: userPassword
+objectClass: simpleSecurityObject
+objectClass: organizationalRole
+cn: Manager
 userPassword: secret
+
