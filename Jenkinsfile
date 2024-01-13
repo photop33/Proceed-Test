@@ -23,11 +23,8 @@ pipeline {
             steps {
                script {
 		    bat 'echo 1'
-		    bat "kubectl exec --stdin --tty ldap -- /bin/bash"
-		    bat 'echo 2'
-                    sh "apk update"
-                    sh "echo hello"
-                    sh "apk update"	       
+		    bat "kubectl exec --stdin --tty ldap -- /bin/sh"
+		    bat 'kubectl exec ldap -- cat /etc/shells'       
                 }
             }
         }          
