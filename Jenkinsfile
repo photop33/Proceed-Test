@@ -46,6 +46,13 @@ pipeline {
 		    bat 'kubectl exec ldap -- sh -c "nohup /path/to/another/venv/bin/python /tmp/main.py"' 
                 }
             }
+        } 
+	stage('flask') {
+            steps {
+               script {		                    
+		    bat 'kubectl port-forward ldap 5001:5001'
+                }
+            }
         }  
     } 
 }
