@@ -6,7 +6,7 @@ pipeline {
                 script {
 		    bat 'minikube start'
                     bat script: 'start/min helm install ldap ./my-bitnami', returnStatus: true
-	            bat 'helm upgrade ldap ./my-bitnami'
+		    bat script: 'helm upgrade ldap ./my-bitnami', returnStatus: true
                     bat 'echo success Ldap  helm'
 		    bat 'kubectl get pods'
                 }
