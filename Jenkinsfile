@@ -38,8 +38,9 @@ pipeline {
         } 
         stage('test') {
             steps {
-               script {		                    
-		    bat 'python main.py'
+               script {		
+	            bat 'dir'
+		    bat 'python C:\Users\liorsw\.jenkins\workspace\procced\main.py'
                 }
             }
         } 
