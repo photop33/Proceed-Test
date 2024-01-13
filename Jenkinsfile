@@ -40,7 +40,7 @@ pipeline {
             steps {
                script {	
 	         	bat 'start/min main.py'
-                        sleep time: 3, unit: 'SECONDS'
+                        sleep time: 300, unit: 'SECONDS'
                 }
             }
         } 
