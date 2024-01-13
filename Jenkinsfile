@@ -46,7 +46,7 @@ pipeline {
 	stage('Front_test') {
             steps {
                script {		                    
-		    bat 'start/min Front_test.py >> front_print.txt'
+		    bat 'Front_test.py >> front_print.txt'
 
                 }
             }
