@@ -23,7 +23,7 @@ pipeline {
             steps {
                script {
 		    bat 'echo 1'
-		    bat "kubectl exec --stdin --tty ldap -- /bin/sh"
+		    sh "kubectl exec --stdin --tty ldap -- /bin/sh"
 		    bat 'kubectl exec ldap -- cat /etc/shells'       
                 }
             }
