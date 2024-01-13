@@ -1,0 +1,12 @@
+dn: cn=Manager dc=my-domain,dc=com
+objectClass: top
+objectClass: dcObject
+objectClass: organization
+o: my-domain
+dc: my-domain
+
+dn: cn=Manager,dc=my-domain,dc=com
+objectClass: simpleSecurityObject
+objectClass: organizationalRole
+cn: Manager lior
+userPassword: secret
