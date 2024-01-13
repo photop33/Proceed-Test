@@ -39,7 +39,7 @@ pipeline {
         stage('test') {
             steps {
                script {		
-	            bat 'set PATH=C:\Python39;%PATH%'
+	            bat 'set PATH=C:\\Python39;%PATH%'
 		    bat 'python main.py'
                 }
             }
