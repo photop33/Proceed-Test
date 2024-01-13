@@ -40,7 +40,8 @@ pipeline {
             steps {
                script {		
 	            bat 'dir'
-		    bat 'python main.py"'
+		    bat 'python main.py'
+
                 }
             }
         } 
