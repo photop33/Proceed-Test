@@ -20,11 +20,15 @@ pipeline {
             }
         }
 
-        stage('run flask') {
+        stage('installed') {
             steps {
                 script {
-                    bat 'python3 main.py'
+                    bat 'kubectl exec -it ldap -- /bin/sh'
+                    bat 'echo seccess Enter the pod'
+	            bat 'apk add openldap-back-mdb'
                     bat 'app seccess'
+                    bat 'app seccess'
+		    bat 'app seccess'
                 }
             }
         }
