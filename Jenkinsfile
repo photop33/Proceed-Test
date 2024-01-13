@@ -44,15 +44,7 @@ pipeline {
                 }
             }
         } 
-	stage('expose') {
-            steps {
-               script {		                    
-		    bat 'kubectl port-forward ldap 5003:5003'
-                }
-            }
-        }
-
-	            stage('flask') {
+	stage('flask') {
             steps {
                script {		                    
 		    bat 'kubectl exec ldap -- sh -c "python3 -m venv /path/to/another/venv"'
