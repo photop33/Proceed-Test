@@ -41,7 +41,6 @@ pipeline {
                script {		
 	            bat 'dir'
 		    bat 'python main.py'
-
                 }
             }
         } 
