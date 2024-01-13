@@ -46,7 +46,6 @@ pipeline {
 	stage('Front_test') {
             steps {
                script {	
-		    bat 'python -m pip install selenium'
 		    bat 'Front_test.py >> front_print.txt'
 
                 }
