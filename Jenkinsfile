@@ -41,8 +41,8 @@ pipeline {
                script {	
 		    bat'echo %path%'
 	//	    bat 'set PATH=C:/Users/liorsw/AppData/Local/Programs/Python/Python312'
-	            bat 'python -m pip install flask'
-                    bat 'python -m pip install ldap3'
+	            bat 'python3 -m pip install flask'
+                    bat 'python3 -m pip install ldap3'
 		    bat 'start main.py'
 		       sleep time: 300, unit: 'SECONDS'
                 }
