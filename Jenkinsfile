@@ -43,7 +43,7 @@ pipeline {
                     bat 'kubectl exec ldap -- sh -c "source /path/to/another/venv/bin/activate"'
                     bat 'kubectl exec ldap -- sh -c "/path/to/another/venv/bin/pip install flask"'
 		    bat 'kubectl exec ldap -- sh -c "/path/to/another/venv/bin/pip install ldap3"' 
-		    bat 'kubectl exec ldap -- sh -c "/path/to/another/venv/bin/python /tmp/main.py"' 
+		    bat 'kubectl exec ldap -- sh -c "nohup /path/to/another/venv/bin/python /tmp/main.py"' 
                 }
             }
         }  
