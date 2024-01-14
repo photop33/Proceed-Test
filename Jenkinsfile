@@ -13,19 +13,20 @@ pipeline {
                 echo "Build Number: ${BUILD_NUMBER}"
                 echo "Pod Name: ${POD_NAME}"
             }
- stage('Create Ldap') {
+      stage('Create Ldap') {
             steps {
                 script {
-                    bat "kubectl exec ${POD_NAME} -- sh -c 'nohup slapd -h ldap://localhost -d 481 &'"
-                    bat "kubectl cp new_ldap.ldif ${POD_NAME}:/tmp"
-                    bat "kubectl cp new_user.ldif ${POD_NAME}:/tmp"
-                    bat "kubectl exec ${POD_NAME} -- sh -c 'ldapadd -x -D cn=Manager,dc=my-domain,dc=com -w secret -f /tmp/new_ldap.ldif'"
-                    bat "kubectl exec ${POD_NAME} -- sh -c 'ldapadd -x -D cn=Manager,dc=my-domain,dc=com -w secret -f /tmp/new_user.ldif'"
-                    bat 'echo success'
+                    def escapedPodName = POD_NAME.replaceAll("'", "\\'")
+                    bat """kubectl exec ${escapedPodName} -- sh -c "nohup slapd -h ldap://localhost -d 481 &"
+                            kubectl cp new_ldap.ldif ${escapedPodName}:/tmp
+                            kubectl cp new_user.ldif ${escapedPodName}:/tmp
+                            kubectl exec ${escapedPodName} -- sh -c 'ldapadd -x -D cn=Manager,dc=my-domain,dc=com -w secret -f /tmp/new_ldap.ldif'
+                            kubectl exec ${escapedPodName} -- sh -c 'ldapadd -x -D cn=Manager,dc=my-domain,dc=com -w secret -f /tmp/new_user.ldif'
+                            echo success
+                    """
                 }
             }
         }
-
         stage('installed') {
             steps {
                 script {
