@@ -36,8 +36,8 @@ pipeline {
                     bat 'kubectl exec ldap -- sh -c "nohup slapd -h ldap://localhost -d 481 &"'
                     bat 'kubectl cp new_ldap.ldif ldap:/tmp'
                     bat 'kubectl cp new_user.ldif ldap:/tmp'
-                    bat script: 'kubectl exec ldap -- sh -c "ldapadd -x -D 'cn=Manager,dc=my-domain,dc=com' -w secret -f /tmp/new_ldap.ldif"', returnStatus: true
-                    bat script: 'kubectl exec ldap -- sh -c "ldapadd -x -D 'cn=Manager,dc=my-domain,dc=com' -w secret -f /tmp/new_user.ldif"', returnStatus: true
+		      bat script: '''kubectl exec ldap -- sh -c " ldapadd -x -D 'cn=Manager,dc=my-domain,dc=com' -w secret -f /tmp/new_ldap.ldif"''', returnStatus: true
+		      bat script: '''kubectl exec ldap -- sh -c " ldapadd -x -D 'cn=Manager,dc=my-domain,dc=com' -w secret -f /tmp/new_user.ldif"''', returnStatus: true
                     bat 'echo success'
                 }
             }
