@@ -3,8 +3,10 @@ pipeline {
     stages {
 	stage('set version') { 	
             steps {	
-                bat "echo IMAGE_TAG=${BUILD_NUMBER} > .env"   
-			    bat "more .env"
+             //   bat "echo IMAGE_TAG=${BUILD_NUMBER} > .env"   
+		//	    bat "more .env"
+		    def buildNumber = currentBuild.number
+                    def podName = "ldap-${buildNumber}"
             }	
          }
 	stage('Deploy HM') {
@@ -13,6 +15,7 @@ pipeline {
 		    bat 'minikube start'
                     bat script: 'start/min helm install ldap ./my-bitnami', returnStatus: true
 		    bat script: 'helm upgrade ldap ./my-bitnami', returnStatus: true
+		    bat "sed 's|POD_NAME_PLACEHOLDER|${podName}|'deployment.yaml | kubectl apply -f -"
 		    bat script: 'kubectl run -i --tty ldap-253 --image=alpine --namespace=default --restart=Never -- sh', returnStatus: true
                     bat 'echo success Ldap  helm'
 		    bat 'kubectl get pods'
