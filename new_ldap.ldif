@@ -9,4 +9,4 @@ objectClass: organizationalPerson
 objectClass: inetOrgPerson
 uid: lior
 cn: lior
-sn: swisauserPassword: {SSHA}S0Ghu8PQhWkbodz7povVYkjxSegijPLC
+sn: swisauserPassword: 12345
