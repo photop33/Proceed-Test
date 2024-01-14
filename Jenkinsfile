@@ -5,8 +5,13 @@ pipeline {
             steps {	
              //   bat "echo IMAGE_TAG=${BUILD_NUMBER} > .env"   
 		//	    bat "more .env"
-		    def buildNumber = currentBuild.number
+                    def buildNumber = currentBuild.number
                     def podName = "ldap-${buildNumber}"
+                    echo "Build Number: ${buildNumber}"
+                    echo "Pod Name: ${podName}"
+                    // Optionally, you can use these variables in subsequent steps
+                    env.BUILD_NUMBER = buildNumber
+                    env.POD_NAME = podName
             }	
          }
 	stage('Deploy HM') {
