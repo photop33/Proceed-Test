@@ -24,7 +24,7 @@ pipeline {
                     bat script: 'kubectl run -i --tty ldap --image=alpine --namespace=default --restart=Never -- sh', returnStatus: true
                     bat 'echo success Ldap helm'
                     bat 'kubectl get pods'
-                    sleep time: 10, unit: 'SECONDS'
+                    sleep time: 5, unit: 'SECONDS'
 
                 }
             }
