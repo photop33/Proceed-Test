@@ -1,14 +1,14 @@
 pipeline {
     agent any
     environment {
-        BUILD_NUMBER = currentBuild.number.toString()
-        POD_NAME = "ldap-${BUILD_NUMBER}"
+      //  BUILD_NUMBER = currentBuild.number.toString()
+    //    POD_NAME = "ldap-${BUILD_NUMBER}"
     }
     stages {
         stage('Set Version') {
             steps {
-                echo "Build Number: ${BUILD_NUMBER}"
-                echo "Pod Name: ${POD_NAME}"
+        //        echo "Build Number: ${BUILD_NUMBER}"
+          //      echo "Pod Name: ${POD_NAME}"
             }
         }
         stage('Deploy HM') {
