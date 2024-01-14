@@ -65,7 +65,8 @@ pipeline {
                     bat 'Front_test.py > front_print.txt 2>&1'
                     bat 'echo front_print success'
                     bat 'echo backend_test success'
-                }
+               }
             }
         }
+    }
 }
