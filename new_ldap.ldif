@@ -1,0 +1,12 @@
+dn: ou=people,dc=my-domain,dc=com
+objectClass: organizationalUnit
+ou: pepole
+
+dn: uid=lior,ou=pepole,dc=my-domain,dc=com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+uid: lior
+cn: lior
+sn: swisauserPassword: {SSHA}S0Ghu8PQhWkbodz7povVYkjxSegijPLC
