@@ -5,7 +5,9 @@ pipeline {
         POD_NAME = "ldap-${BUILD_NUMBER}"
         HELM_CHART = "./my-bitnami" // Adjust this path if needed
     }
-           stage('Deploy K8S Ldap') {
+    
+    stages {
+        stage('Deploy K8S Ldap') {
             steps {
                 script {
                     bat 'minikube start'
@@ -17,14 +19,14 @@ pipeline {
                     bat 'kubectl get pods'
                 }
             }
-       }
+        }
 
-    stages {
         stage('Set Version') {
             steps {
                 echo "Build Number: ${BUILD_NUMBER}"
                 echo "Pod Name: ${POD_NAME}"
             }
+        }
 
         stage('installed') {
             steps {
@@ -49,6 +51,7 @@ pipeline {
                 }
             }
         }
+
         stage('Flask') {
             steps {
                 script {
@@ -65,7 +68,7 @@ pipeline {
                     bat 'Front_test.py > front_print.txt 2>&1'
                     bat 'echo front_print success'
                     bat 'echo backend_test success'
-               }
+                }
             }
         }
     }
