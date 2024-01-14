@@ -6,6 +6,19 @@ pipeline {
         POD_NAME = "ldap-${BUILD_NUMBER}"
         HELM_CHART = "./my-bitnami" // Adjust this path if needed
     }
+           stage('Deploy K8S Ldap') {
+            steps {
+                script {
+                    bat 'minikube start'
+                    bat script: 'start/min helm install ldap ${HELM_CHART}', returnStatus: true
+                    bat script: 'helm upgrade ldap ${HELM_CHART}', returnStatus: true
+                    bat "sed 's|POD_NAME_PLACEHOLDER|${POD_NAME}|' deployment.yaml | kubectl apply -f -"
+                    bat script: 'kubectl run -i --tty ${POD_NAME} --image=alpine --namespace=default --restart=Never -- sh', returnStatus: true
+                    bat 'echo success Ldap helm'
+                    bat 'kubectl get pods'
+                }
+            }
+       }
 
     stages {
         stage('Set Version') {
@@ -13,6 +26,15 @@ pipeline {
                 echo "Build Number: ${BUILD_NUMBER}"
                 echo "Pod Name: ${POD_NAME}"
             }
+
+        stage('installed') {
+            steps {
+                script {
+                    bat 'kubectl exec ${POD_NAME} -- sh -c "apk update && apk add openldap-back-mdb && apk add openrc && apk add openldap && apk add python3 && apk add py3-pip && apk add openldap-clients"'
+                }
+            }
+        }
+
         stage('Create Ldap') {
             steps {
                 script {
@@ -28,24 +50,6 @@ pipeline {
                 }
             }
         }
-        stage('installed') {
-            steps {
-                script {
-                    bat 'kubectl exec ${POD_NAME} -- sh -c "apk update && apk add openldap-back-mdb && apk add openrc && apk add openldap && apk add python3 && apk add py3-pip && apk add openldap-clients"'
-                }
-            }
-        }
-       stage('Deploy K8S Ldap') {
-            steps {
-                script {
-                    bat 'minikube start'
-                    bat script: 'start/min helm install ldap ${HELM_CHART}', returnStatus: true
-                    bat script: 'helm upgrade ldap ${HELM_CHART}', returnStatus: true
-                    bat "sed 's|POD_NAME_PLACEHOLDER|${POD_NAME}|' deployment.yaml | kubectl apply -f -"
-                    bat script: 'kubectl run -i --tty ${POD_NAME} --image=alpine --namespace=default --restart=Never -- sh', returnStatus: true
-                    bat 'echo success Ldap helm'
-                    bat 'kubectl get pods'
-
         stage('Flask') {
             steps {
                 script {
