@@ -7,4 +7,4 @@ objectClass: inetOrgPerson
 uid: lior
 cn: lior
 sn: swisa
-userPassword: {SSHA}S0Ghu8PQhWkbodz7povVYkjxSegijPLC
+userPassword: 12345
