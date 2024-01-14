@@ -2,17 +2,19 @@ pipeline {
     agent any
 
     stages {
-//    environment {
-      //  BUILD_NUMBER = currentBuild.number.toString()
-    //    POD_NAME = "ldap-${BUILD_NUMBER}"
-    }
-//    stages {
-  //      stage('Set Version') {
-    //        steps {
-        //        echo "Build Number: ${BUILD_NUMBER}"
-          //      echo "Pod Name: ${POD_NAME}"
-      //      }
-        //}
+        // environment {
+        //     BUILD_NUMBER = currentBuild.number.toString()
+        //     POD_NAME = "ldap-${BUILD_NUMBER}"
+        // }
+        // stages {
+        //     stage('Set Version') {
+        //         steps {
+        //             echo "Build Number: ${BUILD_NUMBER}"
+        //             echo "Pod Name: ${POD_NAME}"
+        //         }
+        //     }
+        // }
+
         stage('Deploy HM') {
             steps {
                 script {
@@ -25,6 +27,7 @@ pipeline {
                 }
             }
         }
+
         stage('installed') {
             steps {
                 script {
@@ -32,18 +35,20 @@ pipeline {
                 }
             }
         }
+
         stage('Create Ldap') {
             steps {
                 script {
                     bat 'kubectl exec ldap -- sh -c "nohup slapd -h ldap://localhost -d 481 &"'
                     bat 'kubectl cp new_ldap.ldif ldap:/tmp'
                     bat 'kubectl cp new_user.ldif ldap:/tmp'
-		      bat script: '''kubectl exec ldap -- sh -c " ldapadd -x -D 'cn=Manager,dc=my-domain,dc=com' -w secret -f /tmp/new_ldap.ldif"''', returnStatus: true
-		      bat script: '''kubectl exec ldap -- sh -c " ldapadd -x -D 'cn=Manager,dc=my-domain,dc=com' -w secret -f /tmp/new_user.ldif"''', returnStatus: true
+                    bat script: '''kubectl exec ldap -- sh -c " ldapadd -x -D 'cn=Manager,dc=my-domain,dc=com' -w secret -f /tmp/new_ldap.ldif"''', returnStatus: true
+                    bat script: '''kubectl exec ldap -- sh -c " ldapadd -x -D 'cn=Manager,dc=my-domain,dc=com' -w secret -f /tmp/new_user.ldif"''', returnStatus: true
                     bat 'echo success'
                 }
             }
         }
+
         stage('Flask') {
             steps {
                 script {
@@ -52,6 +57,7 @@ pipeline {
                 }
             }
         }
+
         stage('Fronted&backend Test') {
             steps {
                 script {
