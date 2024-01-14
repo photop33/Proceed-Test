@@ -1,5 +1,7 @@
 pipeline {
     agent any
+
+    stages {
 //    environment {
       //  BUILD_NUMBER = currentBuild.number.toString()
     //    POD_NAME = "ldap-${BUILD_NUMBER}"
