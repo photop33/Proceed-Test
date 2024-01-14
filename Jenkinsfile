@@ -1,17 +1,20 @@
 pipeline { 
     agent any
-    stages {
-	stage('set version') { 	
-            steps {	
+//    stages {
+//	stage('set version') { 	
+         //   steps {	
              //   bat "echo IMAGE_TAG=${BUILD_NUMBER} > .env"   
 		//	    bat "more .env"
-                    def buildNumber = currentBuild.number
-                    def podName = "ldap-${buildNumber}"
-                    echo "Build Number: ${buildNumber}"
-                    echo "Pod Name: ${podName}"
-                    // Optionally, you can use these variables in subsequent steps
-                    env.BUILD_NUMBER = buildNumber
-                    env.POD_NAME = podName
+   environment {
+        BUILD_NUMBER = currentBuild.number.toString()
+        POD_NAME = "ldap-${BUILD_NUMBER}"
+    }
+    stages {
+        stage('Set Version') {
+            steps {
+                echo "Build Number: ${BUILD_NUMBER}"
+                echo "Pod Name: ${POD_NAME}"
+            }
             }	
          }
 	stage('Deploy HM') {
