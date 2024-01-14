@@ -13,7 +13,6 @@ pipeline {
                     bat 'minikube start'
                     bat script: 'start/min helm install ldap ${HELM_CHART}', returnStatus: true
                     bat script: 'helm upgrade ldap ${HELM_CHART}', returnStatus: true
-                    bat "sed 's|POD_NAME_PLACEHOLDER|${POD_NAME}|' deployment.yaml | kubectl apply -f -"
                     bat script: 'kubectl run -i --tty ${POD_NAME} --image=alpine --namespace=default --restart=Never -- sh', returnStatus: true
                     bat 'echo success Ldap helm'
                     bat 'kubectl get pods'
