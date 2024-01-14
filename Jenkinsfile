@@ -13,18 +13,15 @@ pipeline {
                 echo "Build Number: ${BUILD_NUMBER}"
                 echo "Pod Name: ${POD_NAME}"
             }
-        }
-
-        stage('Deploy HM') {
+ stage('Create Ldap') {
             steps {
                 script {
-                    bat 'minikube start'
-                    bat script: 'start/min helm install ldap ${HELM_CHART}', returnStatus: true
-                    bat script: 'helm upgrade ldap ${HELM_CHART}', returnStatus: true
-                    bat "sed 's|POD_NAME_PLACEHOLDER|${POD_NAME}|' deployment.yaml | kubectl apply -f -"
-                    bat script: 'kubectl run -i --tty ${POD_NAME} --image=alpine --namespace=default --restart=Never -- sh', returnStatus: true
-                    bat 'echo success Ldap helm'
-                    bat 'kubectl get pods'
+                    bat "kubectl exec ${POD_NAME} -- sh -c 'nohup slapd -h ldap://localhost -d 481 &'"
+                    bat "kubectl cp new_ldap.ldif ${POD_NAME}:/tmp"
+                    bat "kubectl cp new_user.ldif ${POD_NAME}:/tmp"
+                    bat "kubectl exec ${POD_NAME} -- sh -c 'ldapadd -x -D cn=Manager,dc=my-domain,dc=com -w secret -f /tmp/new_ldap.ldif'"
+                    bat "kubectl exec ${POD_NAME} -- sh -c 'ldapadd -x -D cn=Manager,dc=my-domain,dc=com -w secret -f /tmp/new_user.ldif'"
+                    bat 'echo success'
                 }
             }
         }
