@@ -1,0 +1,9 @@
+dn: uid=lior,ou=people,dc=example,dc=com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+uid: lior
+cn: Lior
+sn: Lastname
+userPassword: {SSHA}hashed_password
