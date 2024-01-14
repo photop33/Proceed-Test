@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     def escapedPodName = POD_NAME.replaceAll("'", "\\'")
-                    sh """
+                    bat """
                         kubectl exec ${escapedPodName} -- sh -c "nohup slapd -h ldap://localhost -d 481 &"
                         kubectl cp new_ldap.ldif ${escapedPodName}:/tmp
                         kubectl cp new_user.ldif ${escapedPodName}:/tmp
@@ -35,19 +35,16 @@ pipeline {
                 }
             }
         }
-
-        stage('Create Ldap') {
+       stage('Deploy K8S Ldap') {
             steps {
                 script {
-                    bat 'kubectl exec ${POD_NAME} -- sh -c "nohup slapd -h ldap://localhost -d 481 &"'
-                    bat 'kubectl cp new_ldap.ldif ${POD_NAME}:/tmp'
-                    bat 'kubectl cp new_user.ldif ${POD_NAME}:/tmp'
-                    bat script: '''kubectl exec ldap -- sh -c " ldapadd -x -D 'cn=Manager,dc=my-domain,dc=com' -w secret -f /tmp/new_ldap.ldif"''', returnStatus: true
-		    bat script: '''kubectl exec ldap -- sh -c " ldapadd -x -D 'cn=Manager,dc=my-domain,dc=com' -w secret -f /tmp/new_user.ldif"''', returnStatus: true                    bat script: 'kubectl exec ${POD_NAME} -- sh -c "ldapadd -x -D 'cn=Manager,dc=my-domain,dc=com' -w secret -f /tmp/new_user.ldif"', returnStatus: true
-                    bat 'echo success'
-                }
-            }
-        }
+                    bat 'minikube start'
+                    bat script: 'start/min helm install ldap ${HELM_CHART}', returnStatus: true
+                    bat script: 'helm upgrade ldap ${HELM_CHART}', returnStatus: true
+                    bat "sed 's|POD_NAME_PLACEHOLDER|${POD_NAME}|' deployment.yaml | kubectl apply -f -"
+                    bat script: 'kubectl run -i --tty ${POD_NAME} --image=alpine --namespace=default --restart=Never -- sh', returnStatus: true
+                    bat 'echo success Ldap helm'
+                    bat 'kubectl get pods'
 
         stage('Flask') {
             steps {
