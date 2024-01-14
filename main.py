@@ -15,6 +15,7 @@ def login():
 
         if username in users and users[username]['password'] == password:
             # Generate and save a new secret key for the user
+            print (username,password)
             users[username]['secret'] = pyotp.random_base32()
             return redirect(url_for('enable_mfa', username=username))
         else:
