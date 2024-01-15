@@ -20,7 +20,7 @@ pipeline {
                     bat 'minikube start'
                     bat 'helm install jenkins ./jenkins'
                     bat 'echo success jenkins'
-                    bat  script:kubectl --namespace default port-forward svc/jenkins 8080:8080, returnStatus: true
+                    bat  script: 'kubectl --namespace default port-forward svc/jenkins 8080:8080, returnStatus: true'
                 }
             }
         }
