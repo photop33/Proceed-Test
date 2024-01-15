@@ -36,17 +36,14 @@ def login():
         username = request.form['username'].strip()
         password = request.form['password']
 
-        # Get values from LDIF file
         ldif_path = 'C:\\Users\\liorsw\\.jenkins\\workspace\\procced\\new_user.ldif'
         user_password, cn_value = read_ldif_file(ldif_path)
 
-        # Check credentials with case-insensitive comparison
         if user_password == password and cn_value.lower() == username.lower():
             # Store user data in session
             session['username'] = username
             session['password'] = password
 
-            # Redirect to enable_mfa route
             return redirect(url_for('enable_mfa'))
         else:
             error_message = "Incorrect username or password. Please try again."
@@ -64,7 +61,6 @@ def enable_mfa():
     password = session['password']
 
     if request.method == 'POST':
-        # If the user doesn't have a secret, generate one
         if 'secret' not in session or not session['secret']:
             session['secret'] = pyotp.random_base32()
 
@@ -77,7 +73,6 @@ def enable_mfa():
         else:
             return "Invalid OTP. MFA setup failed."
 
-    # Check if 'secret' key is present in the session
     if 'secret' not in session:
         # If not present, generate a secret and store it in the session
         session['secret'] = pyotp.random_base32()
