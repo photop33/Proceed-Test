@@ -26,7 +26,7 @@ pipeline {
                         if (podStatus == "Running") {
                             break
                         }
-                        sleep time: 15, unit: 
+                            sleep time: 60, unit: 'SECONDS'
                     }
 
                     // Port-forward to Jenkins service
