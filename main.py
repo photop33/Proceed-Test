@@ -6,11 +6,10 @@ import os
 app = Flask(__name__, template_folder='C:\\Users\\liorsw\\.jenkins\\workspace\\procced\\')
 app.static_folder = 'C:\\Users\\liorsw\\.jenkins\\workspace\\procced\\'
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+ldap_server = Server('ldap://localhost:481',get_info=ALL)
+ldap_base = 'dc=my-domain,dc=com'
+ldap_filter = f'(uid={username})'
 
-#def ldap_authenticate(username, password):
-#    ldap_server = Server('ldap://localhost:481',get_info=ALL)
-#    ldap_base = 'dc=my-domain,dc=com'
-#    ldap_filter = f'(uid={username})'
 
 def read_ldif_file(ldif_path):
     user_password = None
@@ -26,7 +25,7 @@ def read_ldif_file(ldif_path):
             user_password = line.strip().split(": ")[1]
 
     return user_password, cn_value
-    
+
 
 ldif_path = 'C:\\Users\\liorsw\\.jenkins\\workspace\\procced\\new_user.ldif'
 user_password, cn_value = read_ldif_file(ldif_path)
@@ -94,3 +93,4 @@ def enable_mfa():
 
 
 if __name__ == '__main__':
+    app.run(debug=True, port=5000)
