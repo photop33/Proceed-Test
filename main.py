@@ -7,6 +7,9 @@ import os
 app = Flask(__name__, template_folder='C:\\Users\\liorsw\\.jenkins\\workspace\\procced\\')
 app.static_folder = 'C:\\Users\\liorsw\\.jenkins\\workspace\\procced\\'
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+dap_server = Server('ldap://localhost:481',get_info=ALL)
+dap_base = 'dc=my-domain,dc=com'
+dap_filter = f'(uid={username})'
 
 
 def read_ldif_file(ldif_path):
