@@ -14,24 +14,23 @@ pipeline {
         //         }
         //     }
         // }
-        stage('create jenkins') {
+        stage('Deploy jenkins') {
             steps {
                 script {
                     bat 'minikube start'
                     bat 'helm install jenkins ./jenkins'
-                    bat 'echo success Ldap helm'
-                    bat 'kubectl get pods'
+                    bat 'echo success jenkins'
+                    bat  script:kubectl --namespace default port-forward svc/jenkins 8080:8080, returnStatus: true
                 }
             }
         }
-
         stage('Deploy HM') {
             steps {
                 script {
                     bat script: 'helm install ldap ./my-bitnami', returnStatus: true
                     bat script: 'helm upgrade ldap ./my-bitnami', returnStatus: true
                     bat script: 'kubectl run -i --tty ldap --image=alpine --namespace=default --restart=Never -- sh', returnStatus: true
-                    bat 'echo success Ldap helm'
+                    bat 'echo success ldap helm'
                     bat 'kubectl get pods'
 
                 }
