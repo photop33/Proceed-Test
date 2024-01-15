@@ -28,10 +28,6 @@ pipeline {
                 }
             }
         }
-
-                }
-            }
-        }
         stage('Deploy HM') {
             steps {
                 script {
