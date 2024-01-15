@@ -40,6 +40,9 @@ def login():
 
         ldif_path = 'C:\\Users\\liorsw\\.jenkins\\workspace\\procced\\new_user.ldif'
         user_password, cn_value = read_ldif_file(ldif_path)
+        host = app.config['LDAP_HOST'] = 'ldap://your-ldap-server'
+        port = app.config['LDAP_PORT'] = 389
+        base = app.config['LDAP_BASE_DN'] = 'dc=my-domain,dc=com'
 
         if user_password == password and cn_value.lower() == username.lower():
             session['username'] = username
