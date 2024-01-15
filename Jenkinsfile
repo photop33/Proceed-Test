@@ -17,20 +17,16 @@ pipeline {
         stage('Deploy jenkins') {
             steps {
                 script {
-                    // Start Minikube
                     bat 'minikube start'
-
-                    // Install Jenkins using Helm
                     bat 'helm install jenkins ./jenkins'
                     bat 'echo success jenkins'
-
                     def podStatus
                     for (int i = 0; i < 10; i++) {
                         podStatus = bat(script: 'kubectl get pods jenkins-0 -o jsonpath="{.status.phase}"', returnStatus: true).trim()
                         if (podStatus == "Running") {
                             break
                         }
-                        sleep 30  // Sleep for 30 seconds before checking again
+                        sleep time: 15, unit: 
                     }
 
                     // Port-forward to Jenkins service
