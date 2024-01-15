@@ -7,10 +7,10 @@ app = Flask(__name__, template_folder='C:\\Users\\liorsw\\.jenkins\\workspace\\p
 app.static_folder = 'C:\\Users\\liorsw\\.jenkins\\workspace\\procced\\'
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
-def ldap_authenticate(username, password):
-    ldap_server = Server('ldap://localhost:481',get_info=ALL)
-    ldap_base = 'dc=my-domain,dc=com'
-    ldap_filter = f'(uid={username})'
+#def ldap_authenticate(username, password):
+#    ldap_server = Server('ldap://localhost:481',get_info=ALL)
+#    ldap_base = 'dc=my-domain,dc=com'
+#    ldap_filter = f'(uid={username})'
 
 def read_ldif_file(ldif_path):
     user_password = None
