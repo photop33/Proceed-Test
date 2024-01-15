@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template, request, redirect, url_for, session
 import pyotp
 from qrcode import make as make_qr
@@ -6,9 +7,6 @@ import os
 app = Flask(__name__, template_folder='C:\\Users\\liorsw\\.jenkins\\workspace\\procced\\')
 app.static_folder = 'C:\\Users\\liorsw\\.jenkins\\workspace\\procced\\'
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
-ldap_server = Server('ldap://localhost:481',get_info=ALL)
-ldap_base = 'dc=my-domain,dc=com'
-ldap_filter = f'(uid={username})'
 
 
 def read_ldif_file(ldif_path):
