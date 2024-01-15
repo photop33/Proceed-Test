@@ -16,7 +16,7 @@ time.sleep(5)
 # Find the input element by XPath
 driver.find_element("xpath", '//*[@id="username"]').send_keys(username)
 driver.find_element("xpath", '//*[@id="password"]').send_keys(password)
-driver.find_element("xpath", '/html/body/form/button').click()
+driver.find_element("xpath", '/html/body/form/input[3]').click()
 time.sleep(2)
 current_url = driver.current_url
 
