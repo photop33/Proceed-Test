@@ -22,15 +22,16 @@ pipeline {
 
                     // Install Jenkins using Helm
                     bat 'helm install jenkins ./jenkins'
-                    
-                    // Output success message
                     bat 'echo success jenkins'
 
-                    // Wait for the jenkins-0 pod to be ready
-                    waitForCondition({
-                        def podStatus = bat(script: 'kubectl get pods jenkins-0 -o jsonpath="{.status.phase}"', returnStatus: true).trim()
-                        return podStatus == "Running"
-                    }, "Waiting for pod to be ready", 10)
+                    def podStatus
+                    for (int i = 0; i < 10; i++) {
+                        podStatus = bat(script: 'kubectl get pods jenkins-0 -o jsonpath="{.status.phase}"', returnStatus: true).trim()
+                        if (podStatus == "Running") {
+                            break
+                        }
+                        sleep 30  // Sleep for 30 seconds before checking again
+                    }
 
                     // Port-forward to Jenkins service
                     bat 'kubectl --namespace default port-forward svc/jenkins 8080:8080'
