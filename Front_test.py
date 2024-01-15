@@ -8,7 +8,7 @@ chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument(f"executable_path={chromedriver_path}")
 driver = webdriver.Chrome(options=chrome_options)
 username='lior'
-password='password123'
+password='12345'
 
 driver.get("http://localhost:5000")
 time.sleep(5)
