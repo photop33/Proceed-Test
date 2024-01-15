@@ -21,11 +21,11 @@ pipeline {
                     bat 'helm install jenkins ./jenkins'
                     bat 'echo success jenkins'
                     def podStatus
-                    for (int i = 0; i < 10; i++) {
-                        podStatus = bat(script: 'kubectl get pods jenkins-0 -o jsonpath="{.status.phase}"', returnStatus: true).trim()
-                        if (podStatus == "Running") {
-                            break
-                        }
+                  for (int i = 0; i < 10; i++) {
+    podStatus = bat(script: 'kubectl get pods jenkins-0 -o jsonpath="{.status.phase}"', returnStatus: true)
+    if (podStatus != null && podStatus.trim() == "Running") {
+        break
+    }
                             sleep time: 60, unit: 'SECONDS'
                     }
 
