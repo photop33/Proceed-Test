@@ -17,14 +17,23 @@ pipeline {
         stage('Deploy jenkins') {
             steps {
                 script {
+                    // Start Minikube
                     bat 'minikube start'
+
+                    // Install Jenkins using Helm
                     bat 'helm install jenkins ./jenkins'
+                    
+                    // Output success message
                     bat 'echo success jenkins'
-                        waitForCondition({
-                        $podStatus = bat(script: 'kubectl get pods -o jsonpath="{.items[0].status.phase}"', returnStatus: true).trim()
-                        return $podStatus == "Running"
+
+                    // Wait for the jenkins-0 pod to be ready
+                    waitForCondition({
+                        def podStatus = bat(script: 'kubectl get pods jenkins-0 -o jsonpath="{.status.phase}"', returnStatus: true).trim()
+                        return podStatus == "Running"
                     }, "Waiting for pod to be ready", 10)
-                    bat  script: 'kubectl --namespace default port-forward svc/jenkins 8080:8080, returnStatus: true'
+
+                    // Port-forward to Jenkins service
+                    bat 'kubectl --namespace default port-forward svc/jenkins 8080:8080'
                 }
             }
         }
