@@ -77,7 +77,6 @@ def enable_mfa():
             return "Invalid OTP. MFA setup failed."
 
     if 'secret' not in session:
-        # If not present, generate a secret and store it in the session
         session['secret'] = pyotp.random_base32()
 
     user_secret = session['secret']
