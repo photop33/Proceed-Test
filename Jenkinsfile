@@ -55,7 +55,7 @@ pipeline {
             steps {
                 script {
                     bat 'start/min main.py'
-                    sleep time: 60, unit: 'SECONDS'
+                //    sleep time: 60, unit: 'SECONDS'
                 }
             }
         }
@@ -64,7 +64,7 @@ pipeline {
             steps {
                 script {
                     bat 'Backend_test.py > backend_test.txt 2>&1'
-                    bat 'Front_test.py > front_print.txt 2>&1'
+                    bat 'start Front_test.py > front_print.txt 2>&1'
                     bat 'echo front_print success'
                     bat 'echo backend_test success'
                 }
