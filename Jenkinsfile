@@ -21,12 +21,14 @@ pipeline {
                     bat 'helm install jenkins ./jenkins'
                     bat 'echo success jenkins'
                     def podStatus
-                  for (int i = 0; i < 10; i++) {podStatus = bat(script: 'kubectl get pods jenkins-0 -o jsonpath="{.status.phase}"', returnStatus: true)
-if (podStatus != null && podStatus.toLowerCase().contains("running")) {
-    break
+        for (int i = 0; i < 10; i++) {
+    podStatus = bat(script: 'kubectl get pods jenkins-0 -o jsonpath="{.status.phase}"', returnStatus: true)
+    if (podStatus != null && podStatus.toString().toLowerCase().contains("running")) {
+        break
+    }
+    sleep time: 60, unit: 'SECONDS'
 }
-                            sleep time: 60, unit: 'SECONDS'
-                    }
+
 
                     // Port-forward to Jenkins service
                     bat 'kubectl --namespace default port-forward svc/jenkins 8080:8080'
