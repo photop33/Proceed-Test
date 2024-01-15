@@ -20,14 +20,15 @@ pipeline {
                     bat 'minikube start'
                     bat 'helm install jenkins ./jenkins'
                     bat 'echo success jenkins'
-                    bat  script: 'kubectl --namespace default port-forward svc/jenkins 8080:8080, returnStatus: true'
-                }
-            }
-        }
                         waitForCondition({
                         $podStatus = bat(script: 'kubectl get pods -o jsonpath="{.items[0].status.phase}"', returnStatus: true).trim()
                         return $podStatus == "Running"
                     }, "Waiting for pod to be ready", 10)
+                    bat  script: 'kubectl --namespace default port-forward svc/jenkins 8080:8080, returnStatus: true'
+                }
+            }
+        }
+
                 }
             }
         }
