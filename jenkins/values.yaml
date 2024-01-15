@@ -52,7 +52,7 @@ controller:
   # If you disable the non-Jenkins identity store and instead use the Jenkins internal one,
   # you should revert controller.adminUser to your preferred admin user:
   adminUser: "admin"
-  # adminPassword: <defaults to random>
+  # adminPassword: "12345678"
   admin:
     existingSecret: ""
     userKey: jenkins-admin-user
@@ -65,7 +65,7 @@ controller:
   jenkinsRef: "/usr/share/jenkins/ref"
   # Path to the jenkins war file which is used by jenkins-plugin-cli.
   jenkinsWar: "/usr/share/jenkins/jenkins.war"
-  # Overrides the default arguments passed to the war
+  # Overrides the default arguments passed to the C:\Users\liorsw\.jenkins\workspace\proccedwar
   # overrideArgs:
   #   - --httpPort=8080
   resources:
@@ -351,7 +351,7 @@ controller:
         users:
         - id: "${chart-admin-username}"
           name: "Jenkins Admin"
-          password: "${chart-admin-password}"
+          password: "12345678"
     # Ignored if authorizationStrategy is defined in controller.JCasC.configScripts
     authorizationStrategy: |-
       loggedInUsersCanDoAnything:
