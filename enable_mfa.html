@@ -6,15 +6,17 @@
     <title>Enable MFA</title>
 </head>
 <body>
-    <h2>Enable Multi-Factor Authentication</h2>
-    <form method="post" action="/enable-mfa/{{ username }}">
-        <label for="otp">Enter the OTP from Google Authenticator:</label>
+    <h1>Enable Multi-Factor Authentication</h1>
+
+    <p>Scan the QR code using your authenticator app and enter the code below:</p>
+
+    <img src="{{ qr_code_url }}" alt="QR Code">
+
+    <form method="post" action="{{ url_for('enable_mfa') }}">
+        <label for="otp">Enter OTP:</label>
         <input type="text" id="otp" name="otp" required>
         <br>
-        <button type="submit">Enable MFA</button>
+        <input type="submit" value="Submit">
     </form>
-
-    <!-- Display the QR code image -->
-    <img src="{{ qr_code_url }}" alt="QR Code">
 </body>
 </html>
