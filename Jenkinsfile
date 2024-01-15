@@ -17,6 +17,7 @@ pipeline {
         stage('create jenkins') {
             steps {
                 script {
+                    bat 'minikube start'
                     bat 'helm install jenkins ./jenkins'
                     bat 'echo success Ldap helm'
                     bat 'kubectl get pods'
@@ -27,7 +28,6 @@ pipeline {
         stage('Deploy HM') {
             steps {
                 script {
-                    bat 'minikube start'
                     bat script: 'helm install ldap ./my-bitnami', returnStatus: true
                     bat script: 'helm upgrade ldap ./my-bitnami', returnStatus: true
                     bat script: 'kubectl run -i --tty ldap --image=alpine --namespace=default --restart=Never -- sh', returnStatus: true
