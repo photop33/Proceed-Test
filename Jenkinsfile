@@ -24,6 +24,13 @@ pipeline {
                 }
             }
         }
+                        waitForCondition({
+                        $podStatus = bat(script: 'kubectl get pods -o jsonpath="{.items[0].status.phase}"', returnStatus: true).trim()
+                        return $podStatus == "Running"
+                    }, "Waiting for pod to be ready", 10)
+                }
+            }
+        }
         stage('Deploy HM') {
             steps {
                 script {
