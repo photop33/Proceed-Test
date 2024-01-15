@@ -35,10 +35,6 @@ def login():
     error_message = None
 
     if request.method == 'POST':
-        # Get form inputs and strip whitespaces
-        dap_server = Server('ldap://localhost:481',get_info=ALL)
-        dap_base = 'dc=my-domain,dc=com'
-        dap_filter = f'(uid={username})'
         username = request.form['username'].strip()
         password = request.form['password']
 
@@ -46,7 +42,6 @@ def login():
         user_password, cn_value = read_ldif_file(ldif_path)
 
         if user_password == password and cn_value.lower() == username.lower():
-            # Store user data in session
             session['username'] = username
             session['password'] = password
 
