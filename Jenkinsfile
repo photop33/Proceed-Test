@@ -14,6 +14,15 @@ pipeline {
         //         }
         //     }
         // }
+        stage('create jenkins') {
+            steps {
+                script {
+                    bat 'helm install jenkins ./jenkins'
+                    bat 'echo success Ldap helm'
+                    bat 'kubectl get pods'
+                }
+            }
+        }
 
         stage('Deploy HM') {
             steps {
