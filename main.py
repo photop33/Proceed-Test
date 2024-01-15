@@ -25,8 +25,7 @@ def read_ldif_file(ldif_path):
 ldif_path = 'C:\\Users\\liorsw\\.jenkins\\workspace\\procced\\new_user.ldif'
 user_password, cn_value = read_ldif_file(ldif_path)
 
-print("userPassword:", user_password)
-print("cn:", cn_value)
+
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -46,7 +45,6 @@ def login():
             # Store user data in session
             session['username'] = username
             session['password'] = password
-            print(ldif_path, 'hhhhhhhhhhhhhhhhhh')
 
             # Redirect to enable_mfa route
             return redirect(url_for('enable_mfa'))
