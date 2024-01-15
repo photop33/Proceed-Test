@@ -26,7 +26,7 @@ pipeline {
     //                        if (podStatus != null && podStatus.toString().toLowerCase().contains("running")) {  break }
   //  sleep time: 30, unit: 'SECONDS'
 //}
-//                    bat 'kubectl --namespace default port-forward svc/jenkins 8080:8080'
+                    bat 'kubectl --namespace default port-forward svc/jenkins 8080:8080'
                 }
             }
         }
@@ -37,7 +37,7 @@ pipeline {
                     bat script: 'helm upgrade ldap ./my-bitnami', returnStatus: true
                     bat script: 'kubectl run -i --tty ldap --image=alpine --namespace=default --restart=Never -- sh', returnStatus: true
                     bat 'echo success ldap helm'
-                    bat 'kubectl get pods'
+                    bat 'kubectl get pods '
 
                 }
             }
@@ -67,7 +67,7 @@ pipeline {
         stage('Flask') {
             steps {
                 script {
-                    bat 'start/min main.py'
+                    bat 'start main.py'
                 //    sleep time: 60, unit: 'SECONDS'
                 }
             }
